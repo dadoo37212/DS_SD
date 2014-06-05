@@ -1,0 +1,773 @@
+table(cpt_v30$key)
+names(cpt_v30)
+cpt_v30_0<-cpt_v30
+load()'../Data/cpt_v30.RData')
+load('../Data/cpt_v30.RData')
+dim(cpt_v30)
+names(cpt_v30)
+60join.R#
+# source('60join.R',echo=TRUE)#
+#join icd birth to cpt#
+#icd=v30 v31, cpt=844.43#
+rm(list=ls())#
+#setwd('~/Dropbox/Projects/DS_Synthetic_Derivative/DS/Proc')#
+START<-''#
+if(Sys.info()['sysname']=='Darwin') START<-'Dropbox'#
+WD<-file.path('~',START,'Projects','DS_Synthetic_Derivative','DS','Proc')#
+WD#
+setwd(WD)#
+rm(START)#
+#
+library(Hmisc)#
+library(knitr)#
+library(gdata)#
+library(rms)#
+library(gdata)#
+library(stringr)#
+library(RMySQL)#
+#
+load("../Data/demo_v30.RData")#
+load("../Data/hamza_icd_v30_ep.RData")#
+load("../Data/hamza_cpt_v30.RData")#
+source('~/Dropbox/Projects/R/zeropad.R')#
+#
+icd_birth<-hamza_icd_v30_ep[substr(hamza_icd_v30_ep$code,1,3) %in% c('V30','V31'),]#
+#V30.00 V30.01 V30.10 V31.00 V31.01 #
+#   148    100      2      1      6  257#
+##
+icd_birth_df<-with(icd_birth,as.data.frame(table(studyid))) #159#
+dim(icd_birth[!duplicated(icd_birth$studyid),])  #159#
+#icd_birth[icd_birth$studyid==23273092,]#
+#
+cpt84443<-hamza_cpt_v30[hamza_cpt_v30$code=='84443',]#
+cpt84443_df<-as.data.frame(table(cpt84443$studyid))#
+cpt84443$key<-zeropad(cpt84443$key)#
+gg<-cpt84443
+ls()
+names(cpt84443)
+cpt84443
+rm(list=ls())
+setwd('~/Dropbox/Projects/DS_Synthetic_Derivative/DS/Proc')#
+START<-''#
+if(Sys.info()['sysname']=='Darwin') START<-'Dropbox'#
+WD<-file.path('~',START,'Projects','DS_Synthetic_Derivative','DS','Proc')#
+WD#
+setwd(WD)#
+rm(START)#
+#
+library(Hmisc)#
+library(knitr)#
+library(gdata)#
+library(rms)#
+library(gdata)#
+library(stringr)#
+library(RMySQL)#
+#
+load("../Data/demo_v30.RData")#
+load("../Data/hamza_icd_v30_ep.RData")#
+load("../Data/hamza_cpt_v30.RData")#
+source('~/Dropbox/Projects/R/zeropad.R')#
+#
+icd_birth<-hamza_icd_v30_ep[substr(hamza_icd_v30_ep$code,1,3) %in% c('V30','V31'),]#
+#V30.00 V30.01 V30.10 V31.00 V31.01 #
+#   148    100      2      1      6  257#
+##
+icd_birth_df<-with(icd_birth,as.data.frame(table(studyid))) #159#
+dim(icd_birth[!duplicated(icd_birth$studyid),])  #159#
+#icd_birth[icd_birth$studyid==23273092,]#
+#
+cpt84443<-hamza_cpt_v30[hamza_cpt_v30$code=='84443',]
+cpt84443$key
+dim(hamza_cpt_v30)
+load('hamza_cpt_v30_ep')
+load('../Data/hamza_cpt_v30_ep.RData')
+ls()
+head(hamza_cpt_v30_ep)
+ls()
+source('~/Dropbox/Projects/R/episodes_l.R')
+episodes_l
+head(hamza_cpt_v30_ep)
+load('../Data/hamza_cpt_v30.RData')
+names(hamza_cpt_v30)
+load('../Data/hamza_cpt.RData')
+head(hamza_cpt)
+load("../Data/cpt.RData")#
+load('../Data/demo_v30.RData')#
+##
+# cpt#
+##
+hamza<-cpt[cpt$agedays< 366 & cpt$agedays >= 0,c('studyid','code','agedays')]#
+hamza <- hamza[order(hamza$studyid,hamza$agedays),]#
+hamza <- hamza[!is.na(hamza$studyid),]#
+#
+hamza<-coleGetids('studyid',hamza)#
+hamza<-subset(hamza,hamza$key < 366)#
+hamza_cpt<-hamza#
+hamza_cpt$key<-zeropad(hamza_cpt$key)
+source('~/Dropbox/Projects/R/getids.R')#
+source('~/Dropbox/Projects/R/coleGetids.R')#
+source('~/Dropbox/Projects/R/episodes_l.R')#
+source('~/Dropbox/Projects/R/zeropad.R')
+load("../Data/cpt.RData")#
+load('../Data/demo_v30.RData')#
+##
+# cpt#
+##
+hamza<-cpt[cpt$agedays< 366 & cpt$agedays >= 0,c('studyid','code','agedays')]#
+hamza <- hamza[order(hamza$studyid,hamza$agedays),]#
+hamza <- hamza[!is.na(hamza$studyid),]#
+#
+hamza<-coleGetids('studyid',hamza)#
+hamza<-subset(hamza,hamza$key < 366)#
+hamza_cpt<-hamza#
+hamza_cpt$key<-zeropad(hamza_cpt$key)
+names(hamza_cpt)
+hamza_cpt$key
+save(hamza_cpt,file='../Data/hamza_cpt.RData') #1,116#
+write.csv(hamza_cpt,file='../Data/hamza_cpt.csv')
+60join.R#
+# source('60join.R',echo=TRUE)#
+#join icd birth to cpt#
+#icd=v30 v31, cpt=844.43#
+rm(list=ls())#
+#setwd('~/Dropbox/Projects/DS_Synthetic_Derivative/DS/Proc')#
+START<-''#
+if(Sys.info()['sysname']=='Darwin') START<-'Dropbox'#
+WD<-file.path('~',START,'Projects','DS_Synthetic_Derivative','DS','Proc')#
+WD#
+setwd(WD)#
+rm(START)#
+#
+library(Hmisc)#
+library(knitr)#
+library(gdata)#
+library(rms)#
+library(gdata)#
+library(stringr)#
+library(RMySQL)#
+#
+load("../Data/demo_v30.RData")#
+load("../Data/hamza_icd_v30_ep.RData")#
+load("../Data/hamza_cpt_v30.RData")#
+source('~/Dropbox/Projects/R/zeropad.R')#
+#
+icd_birth<-hamza_icd_v30_ep[substr(hamza_icd_v30_ep$code,1,3) %in% c('V30','V31'),]#
+#V30.00 V30.01 V30.10 V31.00 V31.01 #
+#   148    100      2      1      6  257#
+##
+icd_birth_df<-with(icd_birth,as.data.frame(table(studyid))) #159#
+dim(icd_birth[!duplicated(icd_birth$studyid),])  #159#
+#icd_birth[icd_birth$studyid==23273092,]#
+#
+cpt84443<-hamza_cpt_v30[hamza_cpt_v30$code=='84443',]#
+cpt84443_df<-as.data.frame(table(cpt84443$studyid))#
+cpt84443$key<-zeropad(cpt84443$key)#
+gg<-cpt84443
+head(gg)
+gg<-gg[order(gg$studyid,gg$agedays),c('studyid','agedays','key')]#
+head(gg,n=50)#
+tsh_wide<-reshape(gg,idvar='studyid',timevar='key',direction='wide')#
+#head(tsh_wide)
+head(tsh_wide)
+gg<-gg[order(gg$studyid,gg$key),]#
+tsh_wide<-reshape(gg,idvar='studyid',timevar='key',direction='wide')#
+head(tsh_wide)
+table(gg$key)
+names(tsh_wide)
+head(gg)
+gg<-rename.vars(gg,'agedays','d')#
+tsh_wide<-reshape(gg,idvar='studyid',timevar='key',direction='wide')#
+head(tsh_wide)
+g<-names(tsh_wide)
+g
+g[order(g)]
+order(names(tsh_wide)
+)
+names(tsh_wide)<-names(tsh_wide)[order(names(tsh_wide))]
+names(tsh_wide)
+names(tsh_wide)<-names(tsh_wide)[order(names(tsh_wide))]#
+head(tsh_wide)
+tsh_wide<-reshape(gg,idvar='studyid',timevar='key',direction='wide')#
+tsh_wide<tsh_wide[,order(names(tsh_wide))]#
+head(tsh_wide)
+tsh_wide<-reshape(gg,idvar='studyid',timevar='key',direction='wide')#
+tsh_wide<-tsh_wide[,order(names(tsh_wide))]#
+head(tsh_wide)
+tsh_wide[tsh_wide$studyid== 23263099,]
+gg[gg$studyid== 23263099,]
+gg<-icd[icd$code =='758' | substr(icd$code,1,5) =='758.0' & icd$agedays < 30,]#
+gg<-gg[!is.na(gg$studyid),]  #3347#
+dim(gg)#
+#
+gg<-gg[order(gg$studyid,gg$code_date),c('studyid','agedays','ageyears','code_date')]#
+gg<-getids('studyid',gg)#
+head(gg,n=50)#
+gg<-gg[,order(names(gg))]#
+#
+ds_wide<-reshape(gg,idvar='studyid',timevar='key',drop=c('ageyears','code_date'),direction='wide')#
+head(ds_wide)
+head(gg)
+1632+2920+1959+4737
+ls()
+head(ds_wide)
+ds_wide<-reshape(gg,idvar='studyid',timevar='key',drop=c('ageyears','code_date'),direction='wide')#
+ds_wide<-ds_wide[,order(names(ds_wide))]#
+#
+head(ds_wide)
+ds_wide[,'d.002']
+ls()
+names(hamza_icd_v30_ep)
+head(hamza_icd_v30_ep)
+head(hamza_cpt_v30_ep)
+load('../Data/hamza_icd_v30_ep.RData')
+head(hamza_cpt_v30_ep)
+load('../Data/hamza_cpt_v30_ep.RData')
+head(hamza_cpt_v30_ep)
+60Hamza.R#
+# source('60Hamza.R',echo=TRUE)#
+#
+rm(list=ls())#
+START<-''#
+if(Sys.info()['sysname']=='Darwin') START<-'Dropbox'#
+WD<-file.path('~',START,'Projects','DS_Synthetic_Derivative','DS','Proc')#
+WD#
+setwd(WD)#
+rm(START)#
+##
+# #
+#     ####### #     # ####### ######  #     # ####### #
+#     #     # #     #    #    #     # #     #    #    #
+#     #     # #     #    #    #     # #     #    #    #
+#     #     # #     #    #    ######  #     #    #    #
+#     #     # #     #    #    #       #     #    #    #
+#     #     # #     #    #    #       #     #    #    #
+#     #######  #####     #    #        #####     #    #
+##
+# studyid_v30 ## only studyids for cases with V30#
+# hamza_cpt ## agedays < 366 and ageday >=0  91973     4#
+# hamza_cpt_v30  ##only cases with V30       21361     4#
+# hamza_icd                                100510      4#
+# hamza_icd_v30                              23793     4#
+# hamza_icd_v30_ep                           23793     5#
+# hamza_cpt_v30_ep                           21361     5#
+# weight_ep                                    300     5#
+# weight_wide                                   58    37#
+# weight_ep                                    300     5#
+#
+library(Hmisc)#
+library(knitr)#
+library(gdata)#
+library(rms)#
+library(stringr)#
+library(RMySQL)#
+#
+source('~/Dropbox/Projects/R/getids.R')#
+source('~/Dropbox/Projects/R/coleGetids.R')#
+source('~/Dropbox/Projects/R/episodes_l.R')#
+source('~/Dropbox/Projects/R/zeropad.R')#
+DEBUG<-FALSE#
+#=-=-=-=-=-=-=-=-=#
+load("../Data/cpt.RData")#
+load('../Data/demo_v30.RData')#
+##
+# cpt#
+##
+hamza<-cpt[cpt$agedays< 366 & cpt$agedays >= 0,c('studyid','code','agedays')]#
+hamza <- hamza[order(hamza$studyid,hamza$agedays),]#
+hamza <- hamza[!is.na(hamza$studyid),]#
+#
+hamza<-coleGetids('studyid',hamza)#
+hamza<-subset(hamza,hamza$key < 366)#
+hamza_cpt<-hamza#
+hamza_cpt$key<-zeropad(hamza_cpt$key)#
+#
+save(hamza_cpt,file='../Data/hamza_cpt.RData') #1,116#
+write.csv(hamza_cpt,file='../Data/hamza_cpt.csv')#
+#
+studyid_v30<-as.data.frame(demo_v30$studyid)#
+names(studyid_v30)<-'studyid'#
+save(studyid_v30,file='../Data/studyid_v30.RData')#
+#
+hamza_cpt_v30<-merge(hamza_cpt,studyid_v30,by='studyid')  #151#
+save(hamza_cpt_v30,file='../Data/hamza_cpt_v30.RData')#
+write.csv(hamza_cpt_v30,file='../Data/hamza_cpt_v30.csv')#
+#
+hamza_cpt_v30<-hamza_cpt_v30[order(hamza_cpt_v30$studyid,hamza_cpt_v30$agedays,hamza_cpt_v30$code),]#
+hamza_cpt_v30_ep<-episodes_l('agedays',hamza_cpt_v30)#
+save(hamza_cpt_v30_ep,file='../Data/hamza_cpt_v30_ep.RData')#
+write.csv(hamza_cpt_v30_ep,file='../Data/hamza_cpt_v30_ep.csv')
+names(# 60Hamza.R#
+# source('60Hamza.R',echo=TRUE)#
+#
+rm(list=ls())#
+START<-''#
+if(Sys.info()['sysname']=='Darwin') START<-'Dropbox'#
+WD<-file.path('~',START,'Projects','DS_Synthetic_Derivative','DS','Proc')#
+WD#
+setwd(WD)#
+rm(START)#
+##
+# #
+#     ####### #     # ####### ######  #     # ####### #
+#     #     # #     #    #    #     # #     #    #    #
+#     #     # #     #    #    #     # #     #    #    #
+#     #     # #     #    #    ######  #     #    #    #
+#     #     # #     #    #    #       #     #    #    #
+#     #     # #     #    #    #       #     #    #    #
+#     #######  #####     #    #        #####     #    #
+##
+# studyid_v30 ## only studyids for cases with V30#
+# hamza_cpt ## agedays < 366 and ageday >=0  91973     4#
+# hamza_cpt_v30  ##only cases with V30       21361     4#
+# hamza_icd                                100510      4#
+# hamza_icd_v30                              23793     4#
+# hamza_icd_v30_ep                           23793     5#
+# hamza_cpt_v30_ep                           21361     5#
+# weight_ep                                    300     5#
+# weight_wide                                   58    37#
+# weight_ep                                    300     5#
+#
+library(Hmisc)#
+library(knitr)#
+library(gdata)#
+library(rms)#
+library(stringr)#
+library(RMySQL)#
+#
+source('~/Dropbox/Projects/R/getids.R')#
+source('~/Dropbox/Projects/R/coleGetids.R')#
+source('~/Dropbox/Projects/R/episodes_l.R')#
+source('~/Dropbox/Projects/R/zeropad.R')#
+DEBUG<-FALSE#
+#=-=-=-=-=-=-=-=-=#
+load("../Data/cpt.RData")#
+load('../Data/demo_v30.RData')#
+##
+# cpt#
+##
+hamza<-cpt[cpt$agedays< 366 & cpt$agedays >= 0,c('studyid','code','agedays')]#
+hamza <- hamza[order(hamza$studyid,hamza$agedays),]#
+hamza <- hamza[!is.na(hamza$studyid),]#
+#
+hamza<-coleGetids('studyid',hamza)#
+hamza<-subset(hamza,hamza$key < 366)#
+hamza_cpt<-hamza#
+hamza_cpt$key<-zeropad(hamza_cpt$key)#
+#
+save(hamza_cpt,file='../Data/hamza_cpt.RData') #1,116#
+write.csv(hamza_cpt,file='../Data/hamza_cpt.csv')#
+#
+studyid_v30<-as.data.frame(demo_v30$studyid)#
+names(studyid_v30)<-'studyid'#
+save(studyid_v30,file='../Data/studyid_v30.RData')#
+#
+hamza_cpt_v30<-merge(hamza_cpt,studyid_v30,by='studyid')  #151#
+save(hamza_cpt_v30,file='../Data/hamza_cpt_v30.RData')#
+write.csv(hamza_cpt_v30,file='../Data/hamza_cpt_v30.csv')#
+#
+hamza_cpt_v30<-hamza_cpt_v30[order(hamza_cpt_v30$studyid,hamza_cpt_v30$agedays,hamza_cpt_v30$code),]#
+hamza_cpt_v30_ep<-episodes_l('agedays',hamza_cpt_v30)#
+save(hamza_cpt_v30_ep,file='../Data/hamza_cpt_v30_ep.RData')#
+write.csv(hamza_cpt_v30_ep,file='../Data/hamza_cpt_v30_ep.csv'))
+60Hamza.R#
+# source('60Hamza.R',echo=TRUE)#
+#
+rm(list=ls())#
+START<-''#
+if(Sys.info()['sysname']=='Darwin') START<-'Dropbox'#
+WD<-file.path('~',START,'Projects','DS_Synthetic_Derivative','DS','Proc')#
+WD#
+setwd(WD)#
+rm(START)#
+##
+# #
+#     ####### #     # ####### ######  #     # ####### #
+#     #     # #     #    #    #     # #     #    #    #
+#     #     # #     #    #    #     # #     #    #    #
+#     #     # #     #    #    ######  #     #    #    #
+#     #     # #     #    #    #       #     #    #    #
+#     #     # #     #    #    #       #     #    #    #
+#     #######  #####     #    #        #####     #    #
+##
+# studyid_v30 ## only studyids for cases with V30#
+# hamza_cpt ## agedays < 366 and ageday >=0  91973     4#
+# hamza_cpt_v30  ##only cases with V30       21361     4#
+# hamza_icd                                100510      4#
+# hamza_icd_v30                              23793     4#
+# hamza_icd_v30_ep                           23793     5#
+# hamza_cpt_v30_ep                           21361     5#
+# weight_ep                                    300     5#
+# weight_wide                                   58    37#
+# weight_ep                                    300     5#
+#
+library(Hmisc)#
+library(knitr)#
+library(gdata)#
+library(rms)#
+library(stringr)#
+library(RMySQL)#
+#
+source('~/Dropbox/Projects/R/getids.R')#
+source('~/Dropbox/Projects/R/coleGetids.R')#
+source('~/Dropbox/Projects/R/episodes_l.R')#
+source('~/Dropbox/Projects/R/zeropad.R')#
+DEBUG<-FALSE#
+#=-=-=-=-=-=-=-=-=#
+load("../Data/cpt.RData")#
+load('../Data/demo_v30.RData')#
+##
+# cpt#
+##
+hamza<-cpt[cpt$agedays< 366 & cpt$agedays >= 0,c('studyid','code','agedays')]#
+hamza <- hamza[order(hamza$studyid,hamza$agedays),]#
+hamza <- hamza[!is.na(hamza$studyid),]#
+#
+hamza<-coleGetids('studyid',hamza)#
+hamza<-subset(hamza,hamza$key < 366)#
+hamza_cpt<-hamza#
+hamza_cpt$key<-zeropad(hamza_cpt$key)#
+#
+save(hamza_cpt,file='../Data/hamza_cpt.RData') #1,116#
+write.csv(hamza_cpt,file='../Data/hamza_cpt.csv')#
+#
+studyid_v30<-as.data.frame(demo_v30$studyid)#
+names(studyid_v30)<-'studyid'#
+save(studyid_v30,file='../Data/studyid_v30.RData')#
+#
+hamza_cpt_v30<-merge(hamza_cpt,studyid_v30,by='studyid')  #151#
+save(hamza_cpt_v30,file='../Data/hamza_cpt_v30.RData')#
+write.csv(hamza_cpt_v30,file='../Data/hamza_cpt_v30.csv')#
+#
+hamza_cpt_v30<-hamza_cpt_v30[order(hamza_cpt_v30$studyid,hamza_cpt_v30$agedays,hamza_cpt_v30$code),]#
+hamza_cpt_v30_ep<-episodes_l('agedays',hamza_cpt_v30)#
+save(hamza_cpt_v30_ep,file='../Data/hamza_cpt_v30_ep.RData')#
+write.csv(hamza_cpt_v30_ep,file='../Data/hamza_cpt_v30_ep.csv')
+ls()
+names(hamza_icw)
+source('60Hamza.R',echo=TRUE)
+source('60Hamza.R',echo=TRUE)
+ls()
+dim(hamza_icw)
+names(hamza_icw)
+head(hamza_icw)
+hamza_icd$key<-zeropad(hamza_icw$key)
+zeropad
+contents(hamza_icw)
+zp<-edit(zeropad)
+zp
+hamza_icd$key<-zp(hamza_icw$key)
+hamza_icw$key<-zp(hamza_icw$key)
+table(hamza_icw$key)
+hamza_icw$key<-zeropad(hamza_icw$key)
+table(hamza_icw$key)
+save(hamza_icw,file='../Data/hamza_icw-2014-01-14.RData') #145 unique studyid's#
+write.csv(hamza_icw,file='../Data/hamza_icw-2014-01-14.csv')
+dim(hamza_icw)
+dim(weight_ep)
+dim(weight)
+dim(weight_wide)
+dim(hamza_cpt_v30_ep)
+dim(icd_v30)
+ls()
+dim(demo_v30
+)
+load('../Data/demo_v30.RData')
+ls()
+dim(demo_v30)
+names(demo_v30)
+table(demo_v30$deceased)
+with(subset(demo_v30,deceased=='null'),table(decease))
+with(subset(demo_v30,deceased=='null'),table(deceased))
+demo_v30$deceased<-ifelse(demo_v30$deceased=='null','N',demo_v30$deceased)
+with(subset(demo_v30,deceased=='null'),table(deceased))
+table(demo_v30$deceased)
+save(demo_v30,icd_v30,file='../Data/v30.RData')
+names(ds_demo)
+load('../Data/ds_demo.RData')
+names(ds_demo)
+table(ds_demo$deceases)
+table(ds_demo$deceased)
+ds_demo$deceased<-ifelse(ds_demo$deceased=='null','N',ds_demo$deceased)#
+save(ds_demo,file="../Data/ds_demo.RData")
+table(ds_demo$deceased)
+dim(ds_demo)
+dim(demo_v30)
+names(demo_v30)
+with(demo_v30,table(deceased))
+13/163
+dim(hamza_cpt)
+dim(hamza_cpt_v30)
+ls()
+dim(weight_ep)
+head(weight_wide)
+table(weight_wide$w.01)
+hist(weight_wide$w.01)
+hist(weight_wide$w.01)
+ls()
+names(icd_v30)
+load('../Data/icd_v30.RData')
+names(icd_v30)
+with(icd_v30,table(code))
+ls()
+60getV30.R#
+# source('60getV30.R',echo=TRUE)#
+# get V30 only#
+##
+rm(list=ls())#
+#setwd('~/Dropbox/Projects/DS_Synthetic_Derivative/DS/Proc')#
+START<-''#
+if(Sys.info()['sysname']=='Darwin') START<-'Dropbox'#
+WD<-file.path('~',START,'Projects','DS_Synthetic_Derivative','DS','Proc')#
+WD#
+setwd(WD)#
+rm(START)#
+#
+library(Hmisc)#
+library(gdata)#
+load("../Data/icd.RData")#
+load("../Data/ds_demo.RData")#
+load("../Data/cpt.RData")#
+##
+# ds_demo       2431 -- all records (nvars=10)#
+# demo          2131 -- only ds == 1 #
+# demo_v30       163 -- demo records with one or more v30 icd & ds=1#
+# cpt         327208 -- raw cpt records  (nvars=12) #
+# cpt_v30      47297 -- merged demo_v30 and all cpt#
+# icd         393764 -- raw icd records (nvars=  13)#
+# icd_v30        337 -- icd's for cases with V30 or V31 (nvars=  13)#
+# icd_v30_all  75027 -- icd records for demo_v30#
+# icd_cpt_v30 136045 -- row bind of icd_v30_all and cpt_v30#
+#  variable 'grp' indicates if icd_cpt_v30 came from cpt or icd#
+#  #
+#
+icd_v30<-icd[substr(icd$code,1,3) %in% c('V30','V31'),] # 337  records with V30 or V31 icd9 code#
+icd_v30_df<-as.data.frame(table(icd_v30$studyid))#
+icd_v30_df$Freq<-NULL#
+icd_v30_df<-rename.vars(icd_v30_df,'Var1','studyid') #205  studyid's for icd records with V30 or V31#
+#
+demo<-ds_demo[ds_demo$ds==1,]  #2132  demo records with verified DS dx#
+demo_v30<-merge(demo,icd_v30_df,by='studyid') #163  demo records with V30 or V31 dx#
+#
+save(demo_v30,file='../Data/demo_v30.RData')#
+save(icd_v30,file='../Data/icd_v30.RData')#
+#
+demo_v3_id<-as.data.frame(demo_v30[,1])  #studyid's for DS==1 and V30 or V31#
+names(demo_v3_id)<-"studyid"#
+names(demo_v3_id)  #163  10#
+#
+cpt_v30<-merge(cpt,demo_v3_id,by='studyid')     #46966#
+icd_v30_all<-merge(icd,demo_v3_id,by='studyid') #59277#
+#
+##
+#rbind cpt_v30 icd_v30_all#
+##
+cpt_v30<-rename.vars(cpt_v30,'ageyear','ageyears')#
+cpt_v30<-remove.vars(cpt_v30,c('id_date','key'))
+names(icd_v30_all)
+with(icd_v30_all,table(code))
+head(icd_v30_all)
+save(icd_v30_all,file='../Data/icd_v30_all.RData')
+with(icd_v30_all,table(code))
+with(icd_v30_all,table(icd_grp_desc))
+load("../Data/icd_v30_all.RData")
+with(icd_v30_all,table(icd_grp_desc))
+icd_df<-with(icd_v30_all,table(icd_grp_desc))
+icd_df
+icd_df[order(icd_df$Freq),]
+icd_df<-with(icd_v30_all,table(icd_grp_desc))
+icd_df
+icd_df<-with(icd_v30_all,as.data.frame(table(icd_grp_desc)))
+icd_df
+icd_df[order(icd_df$Freq),]
+addmargins(icd_df[order(icd_df$Freq),])
+icd_df<-with(icd_v30_all,as.data.frame(addmargins(table(icd_grp_desc))))#
+icd_df[order(icd_df$Freq),]#
+icd_df[order(icd_df$Freq),]
+icd_v30_all[icd_v30_all$icd_grp_desc=='Pregnancy',']
+''
+)
+]
+''
+icd_v30_all[icd_v30_all$icd_grp_desc=='Pregnancy',]
+icd_v30_all[icd_v30_all$icd_grp_desc=='Congenital',]
+head(icd_v30_all[icd_v30_all$icd_grp_desc=='Congenital',],n=50)
+ls()
+load('../Data/hamza_icw.RData')
+ls()
+head(hamza_icw)
+load('../Data/hamza_icw-2014-01-14.RData')
+ls()
+dim(hamza_icw)
+head(hamza_icw)
+source('60Hamza.R',echo=TRUE)
+ls()
+head(hamza_icw)
+names(hamza_icw)
+load('../Data/icd_cpt_v30.RData')
+load('../Data/icd_v30.RData')
+head(icd_v30)
+tail(icd_v30)
+load('../Data/icd_v30_all.RData')
+head(icd_v30_all)
+tail(icd_v30_all)
+'../Data/icd_cpt_v30.RData'
+load('../Data/icd_cpt_v30.RData')
+head(icd_cpt_v30)
+icd_cpt_v30[icd_cpt_v30$grp='icd','code']
+icd_cpt_v30[icd_cpt_v30$grp=='icd','code']
+load("../Data/cpt_v30.RData")#
+load('../Data/demo_v30.RData')
+names(cpt_v30)
+with(cpt_v30,table(agedays))
+hamza<-cpt[cpt_v30$agedays< 366 & cpt$agedays >= 0,c('studyid','code','agedays')]#
+hamza <- hamza[order(hamza$studyid,hamza$agedays),]#
+hamza <- hamza[!is.na(hamza$studyid),]#
+#
+hamza<-coleGetids('studyid',hamza)#
+hamza<-subset(hamza,hamza$key < 366)#
+hamza_cpt<-hamza#
+hamza_cpt$key<-zeropad(hamza_cpt$key)
+load("../Data/cpt_v30.RData")#
+load('../Data/demo_v30.RData')#
+##
+# cpt#
+##
+hamza<-cpt[cpt_v30$agedays< 366 & cpt_v30$agedays >= 0,c('studyid','code','agedays')]#
+hamza <- hamza[order(hamza$studyid,hamza$agedays),]#
+hamza <- hamza[!is.na(hamza$studyid),]#
+#
+hamza<-coleGetids('studyid',hamza)#
+hamza<-subset(hamza,hamza$key < 366)#
+hamza_cpt<-hamza#
+hamza_cpt$key<-zeropad(hamza_cpt$key)
+head(hamza_cpt)
+load("../Data/cpt_v30.RData")#
+load('../Data/demo_v30.RData')#
+##
+# cpt#
+##
+hamza<-cpt_v30[cpt_v30$agedays< 366 & cpt_v30$agedays >= 0,c('studyid','code','agedays')]#
+hamza <- hamza[order(hamza$studyid,hamza$agedays),]#
+hamza <- hamza[!is.na(hamza$studyid),]#
+#
+hamza<-coleGetids('studyid',hamza)#
+hamza<-subset(hamza,hamza$key < 366)#
+hamza_cpt<-hamza#
+hamza_cpt$key<-zeropad(hamza_cpt$key)
+head(hamza_cpt)
+head(cpt_v30)
+save(hamza_cpt,file='../Data/hamza_cpt.RData') #1,116#
+write.csv(hamza_cpt,file='../Data/hamza_cpt.csv')
+studyid_v30<-as.data.frame(demo_v30$studyid)#
+names(studyid_v30)<-'studyid'#
+save(studyid_v30,file='../Data/studyid_v30.RData')#
+#
+hamza_cpt_v30<-merge(hamza_cpt,studyid_v30,by='studyid')  #151#
+save(hamza_cpt_v30,file='../Data/hamza_cpt_v30.RData')#
+write.csv(hamza_cpt_v30,file='../Data/hamza_cpt_v30.csv')#
+#
+hamza_cpt_v30<-hamza_cpt_v30[order(hamza_cpt_v30$studyid,hamza_cpt_v30$agedays,hamza_cpt_v30$code),]#
+hamza_cpt_v30_ep<-episodes_l('agedays',hamza_cpt_v30)#
+save(hamza_cpt_v30_ep,file='../Data/hamza_cpt_v30_ep.RData')#
+write.csv(hamza_cpt_v30_ep,file='../Data/hamza_cpt_v30_ep.csv')
+load('../Data/icd_v30.RData')#
+hamza_icd<-icd_v30[icd_v30$agedays< 366 & icd_v30$agedays >= 0,c('studyid','code','agedays')]#
+hamza_icd <- hamza_icd[order(hamza_icd$studyid,hamza_icd$agedays),]#
+hamza_icd <- hamza_icd[!is.na(hamza_icd$studyid),]#
+hamza_icd <- coleGetids('studyid',hamza_icd)#
+hamza_icd <- subset(hamza_icd,hamza_icd$key < 366)#
+#
+save(hamza_icd,file='../Data/hamza_icd.RData') #100,006#
+write.csv(hamza_icd,file='../Data/hamza_icd.csv')
+head(hamza_icd)
+tail(hamza_icd)
+load('../Data/icd_v30_all.RData')#
+hamza_icd<-icd_v30_all[icd_v30$agedays< 366 & icd_v30_all$agedays >= 0,c('studyid','code','agedays')]#
+hamza_icd <- hamza_icd[order(hamza_icd$studyid,hamza_icd$agedays),]#
+hamza_icd <- hamza_icd[!is.na(hamza_icd$studyid),]#
+hamza_icd <- coleGetids('studyid',hamza_icd)#
+hamza_icd <- subset(hamza_icd,hamza_icd$key < 366)#
+#
+save(hamza_icd,file='../Data/hamza_icd.RData') #100,006#
+write.csv(hamza_icd,file='../Data/hamza_icd.csv')
+load('../Data/icd_v30_all.RData')#
+hamza_icd<-icd_v30_all[icd_v30$agedays< 366 & icd_v30_all$agedays >= 0,c('studyid','code','agedays')]#
+hamza_icd <- hamza_icd[order(hamza_icd$studyid,hamza_icd$agedays),]#
+hamza_icd <- hamza_icd[!is.na(hamza_icd$studyid),]#
+hamza_icd <- coleGetids('studyid',hamza_icd)#
+hamza_icd <- subset(hamza_icd,hamza_icd$key < 366)
+load('../Data/icd_v30_all.RData')
+head(icd_v30_all)
+icd_v30_all[icd_v30$agedays< 366 && icd_v30_all$agedays >= 0,c('studyid','code','agedays')]
+head(icd_v30_all)
+load('../Data/icd_v30_all.RData')#
+hamza_icd<-icd_v30_all[icd_v30_all$agedays< 366 && icd_v30_all$agedays >= 0,c('studyid','code','agedays')]#
+hamza_icd <- hamza_icd[order(hamza_icd$studyid,hamza_icd$agedays),]#
+hamza_icd <- hamza_icd[!is.na(hamza_icd$studyid),]#
+hamza_icd <- coleGetids('studyid',hamza_icd)#
+hamza_icd <- subset(hamza_icd,hamza_icd$key < 366)
+head(hamza_icd)
+load('../Data/hamza_icd_v30.RData')
+head(hamza_icd_v30)
+dim(hamza_icd_v30)
+dim(hamza_icd)
+save(hamza_icd,file='../Data/hamza_icd.RData') #100,006#
+write.csv(hamza_icd,file='../Data/hamza_icd.csv')#
+#
+hamza_icd_v30<-merge(hamza_icd,studyid_v30,by='studyid')  #22,723  153 unique studyid's#
+save(hamza_icd_v30,file='../Data/hamza_icd_v30.RData')#
+write.csv(hamza_icd_v30,file='../Data/hamza_icd_v30.csv')#
+#
+hamza_icd_v30<-hamza_icd_v30[order(hamza_icd_v30$studyid,hamza_icd_v30$agedays,hamza_icd_v30$code),]#
+hamza_icd_v30_ep<-episodes_l('agedays',hamza_icd_v30)#
+save(hamza_icd_v30_ep,file='../Data/hamza_icd_v30_ep.RData')#
+write.csv(hamza_icd_v30_ep,file='../Data/hamza_icd_v30_ep.csv')
+table(hamza_icd_v30$agedays,exclude=NULL)
+hamza_icd_v30<-merge(hamza_icd,studyid_v30,by='studyid')  #22,723  153 unique studyid's#
+save(hamza_icd_v30,file='../Data/hamza_icd_v30.RData')#
+write.csv(hamza_icd_v30,file='../Data/hamza_icd_v30.csv')#
+#
+hamza_icd_v30<-hamza_icd_v30[order(hamza_icd_v30$studyid,hamza_icd_v30$agedays,hamza_icd_v30$code),]#
+hamza_icd_v30<-hamza_icd_v30[!is.na(hamza_icd_v30$agedays),]#
+hamza_icd_v30_ep<-episodes_l('agedays',hamza_icd_v30)
+with(hamza_icd_v30_ep,table(agedays)
+)
+hamza_icd_v30<-hamza_icd_v30[!is.na(hamza_icd_v30$agedays) && hamza_icd_v30$agedays < 366,]#
+hamza_icd_v30_ep<-episodes_l('agedays',hamza_icd_v30)#
+save(hamza_icd_v30_ep,file='../Data/hamza_icd_v30_ep.RData')
+dim(hamza_icd_v30_ep)
+dim(hamza_cpt_v30_ep)
+names(hamza_icd_v30_ep)
+with(hamza_icd_v30_ep$agedays)
+with(hamza_icd_v30_ep,table(agedays))
+with(hamza_icd_v30,table(agedays))
+hamza_icd_v30<-hamza_icd_v30[order(hamza_icd_v30$studyid,hamza_icd_v30$agedays,hamza_icd_v30$code),]#
+hamza_icd_v30<-hamza_icd_v30[!is.na(hamza_icd_v30$agedays),]#
+hamza_icd_v30<-hamza_icd_v30[hamza_icd_v30$agedays < 366,]#
+hamza_icd_v30_ep<-episodes_l('agedays',hamza_icd_v30)#
+save(hamza_icd_v30_ep,file='../Data/hamza_icd_v30_ep.RData')#
+write.csv(hamza_icd_v30_ep,file='../Data/hamza_icd_v30_ep.csv')
+with(hamza_icd_v30_ep,table(agedays))
+load("../Data/icd_v30_all.RData")#
+load("../Data/hamza_icd_v30.RData")
+dim(hamza_icd_v30.RData)
+dim(hamza_icd_v30)
+dim(icd_v30_all)
+load("../Data/hamza_icd_v30_ep.RData")  #35650     4
+dim(hamza_icd_v30_ep)
+head(23793     5)
+head(hamza_icd_v30_ep)
+hamza_icd_v30_ep[hamza_icd_v30_ep$studyid== 23263099,]
+with(hamza_icd_v30_ep[hamza_icd_v30_ep$studyid== 23263099,],table(code))
+with(hamza_icd_v30_ep,table(studyid,code))
+head(hamza_icd_v30_ep)
+length(table(hamza_icd_v30_ep$studyid))
+icd1<-hamza_icd_v30_ep[,c('studyid','code')]
+dim(icd1)
+icd1_u<-unique(icd1)
+dim(icd1_u)
+names(icd1_u)
+table(icd1_u$code)
+icd1_df<-as.data.frame(table(icd1_u$code))
+icd1_df
+icd1_df[order(icd1_df$Freq),]

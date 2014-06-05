@@ -1,0 +1,5 @@
+setwd('/Users/rick/Dropbox/Projects/Nasir, Hamza/Data/Medications')
+med_d<-read.csv('DCSV',as.is=TRUE)
+save(med_d,file='med_d.RData')
+med_s<-read.csv('SCSV',as.is=TRUE)
+save(med_s,file='med_s.RData')
