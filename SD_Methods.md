@@ -1,52 +1,65 @@
-# SD Methods
+# Synthetic Derivative (SD) Methods
 
-script 00.R cd
+working folder
 /Users/urbanorc/Dropbox/Projects/DS\_Synthetic\_Derivative/DS/Proc
+
+repo /Users/rick/Desktop/repos/DS\_SD
 
 ## Case Selection from the Synthetic Derivative
 
-Down syndrome cases
+### **Down syndrome cases**
 
 The first step in using the SD is to define a set of target cases. The
 SD set named 'DS2' has 2,420 cases with a ICD9 code of 758.0. All
 subsequent retrievals from SD use the cases in the 'DS2' dataset.
 
-The SD 'Set Tools tab' allows exporting of ICD code, CPT codes, labs and
-vital signs.
+The SD 'Set Tools tab' allows exporting data from the selected dataset
+with several limitations.
 
-Each export dataset is limited to 10,000 records.
+-   Some but not all variables in the selected dataset may be exported
+    into CSV files. ICD code, CPT codes, labs and vital signs may be
+    exported.
 
-ICD, CPT and Lab codes require the user to manually select specific
-values. Vital signs have checkboxes and multiple measures may be
-selected at once.
+-   Each export dataset is limited to 10,000 records.
 
-### Labs records have Date, Time, Short Name, Long Name, Value, Abnormal, Age at event
+-   ICD, CPT and Lab codes require the user to manually select specific
+    values. The Vital Signs export dialog has checkboxes and multiple
+    measures may be selected at once.
 
-### CPT Code records have Date, Code, Description, age at event
+-   Medications and Documents can not be exported
 
-### ICD Code records have Date, Code, Description, age at event
+In order to export medications and documents, Cole Beck created the
+javascript file, sd.user.js, with four functions for the Firefox browser
+to extract information from these sources to the system clipboard. The
+functions *GetMeds*, *Copy! And GetDocs* and *CopyDocs!* retrieve
+information from a displayed case and save that information in the
+system clipboard. A Ruby program then saves the data in the system
+clipboard to a file. The file name includes the unique studyid from the
+case retrieved. Thus, there is one file per case per data type. The
+unique studyid can be used to create linked data records for
+individuals.
 
-### Vital Signs -- Date, Time, Value, Age at event for BP; BMI; Height; Weight; Resp Rate
+### File layouts
 
-The SD 'Set tool tab' does not allow exporting Medications or Documents.
-To export medications and documents, Cole Beck created four javascript
-functions for the Firefox browser to extract information from these
-sources to the system clipboard. The javascripts functions *GetMeds*,
-*Copy! And GetDocs* and *CopyDocs!* were used retrieve information from
-a displayed case and save in the system clipboard. A support Ruby
-program was then used to save the data in the system clipboard to a
-file. The file name includes the unique studyid from the case retrieved.
-Thus, there is one file per case per data type.
+1.  Labs records have Date, Time, Short Name, Long Name, Value,
+    Abnormal, Age at event
 
-### Medications summary -- Drug Name, Mentions, First Mention Date, Last Mention
+2.  CPT Code records have Date, Code, Description, age at event
 
-    Requires GetMeds and Copy! Functions to retrieve
+3.  ICD Code records have Date, Code, Description, age at event
 
-### Medications Details -- Date, Time,Drug name, form, strength, amount, route,
+4.  Vital Signs records have Date, Time, Value, Age at event for BP;
+    BMI; Height; Weight; Resp Rate
 
-      Requires GetMeds and CopyDetails! Functions to retrieve
+5.  Medications summary -- Drug Name, Mentions, First Mention Date, Last
+    Mention — Requires GetMeds and Copy! dunctions to retrieve data.
 
-### Documents -- High Value; Other; Problem Lists -- requires *GetDocs and CopyDocs!* functions.
+6.  Medications Details -- Date, Time,Drug name, form, strength, amount,
+    route -- Requires GetMeds and CopyDetails! functions to retrieve
+    data.
+
+7.  Documents -- High Value; Other; Problem Lists -- requires *GetDocs
+    and CopyDocs!* functions.
 
 **Control cases**
 
@@ -63,7 +76,7 @@ but not more than 10,000.
 Table 1. Datasets exported from the Synthetic Derivative.
 
 +-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+
-|                       | DS                    | Age                   | V30                   | Gender                | Number of Records     |
+| Dataset               | DS                    | Age                   | V30                   | Gender                | Number of Records     |
 +-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+
 | V30MF14\_55           | No                    | 14-55                 | Yes                   | Male & Female         | 6,564                 |
 +-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+
@@ -78,7 +91,9 @@ Table 1. Datasets exported from the Synthetic Derivative.
 | DS2                   | Yes                   | 0-55                  | All                   | Both                  | 2,420                 |
 +-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+
 
-Processing
+## Processing
+
+script 00.R
 
 10ds1.R
 
